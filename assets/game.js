@@ -1,38 +1,51 @@
 var timeEl = document.querySelector("#time");
 var startbutton = document.querySelector("#start-button");
-var choices; //the box we append after the question in .box that holds all our choice answers
 var currentQuestion = 0; //integer, current question index from questionsArray
+var box = document.querySelector(".box");
+var timeEl=document.querySelector("#time");
+var timeLeft = 60;
+var questionText= document.querySelector(".box h2")
 
 //var score = 0;
 var questionsArray = [
-    q1 = {
-        question: "this is a question",
-        choices: ["a", "b", "c", "d"],
-        right: "a",
+    q1 = {question: "this is question 1",
+    choices: ["a", "b", "c", "d"],
+    right: "a",
     },
-    q2 = {question: "this is a question",
+    q2 = {question: "this is question 2",
     choices: ["a", "b", "c", "d"],
-    right: "a",},
-    q3 = {question: "this is a question",
+    right: "a",
+    },
+    q3 = {question: "this is question 3",
     choices: ["a", "b", "c", "d"],
-    right: "a",},
-    q4 = {question: "this is a question",
+    right: "a",
+    },
+    q4 = {question: "this is question 4",
     choices: ["a", "b", "c", "d"],
-    right: "a",},
-    q5 = {question: "this is a question",
-    choices: ["a", "b", "c", "d"],
-    right: "a",},
+    right: "a",
+    },
 
 ];
-function displayQuestion() {
-    //<box.h2=question //replace h2 with current question
-    //create/append choices;
+
+function displayChoices() {
+    console.log("these are your choices!")
+};
+
+function displayQuestion(current) {
+    
+    console.log("current question is " + questionsArray[current].question);
+    console.log(box);
+    questionText.textContent = questionsArray[current].question;
+    //change choices and questiontext
+};
+   
+
 
 function playGame() {
+    
     console.log("you started the game!");
     startbutton.remove(); //remove start button?
-
-    
+    displayQuestion(currentQuestion);
     //display each question
     //compare answer
     //
