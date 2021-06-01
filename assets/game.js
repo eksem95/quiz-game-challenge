@@ -1,7 +1,7 @@
 var timeEl = document.querySelector("#time");
 var startbutton = document.querySelector("#start-button");
 var currentQuestion = 0; //integer, current question index from questionsArray
-var box = document.querySelector(".box");
+var choices = document.querySelector(".choices");
 var timeEl=document.querySelector("#time");
 var timeLeft = 60;
 var questionText= document.querySelector(".box h2")
@@ -27,15 +27,26 @@ var questionsArray = [
 
 ];
 
-function displayChoices() {
-    console.log("these are your choices!")
+function displayChoices(current) {
+    var button;
+    var i = 0;
+    console.log("these are your choices!");
+    choices.textcontent=""; //remove all text context 
+    //for(var i= 0; i < questionsArray[current].choices.length; i++) {
+        button = document.createElement("button");
+        button.textContent = questionsArray[current].choices[i];
+        choices.appendChild(button);
+    //};
+    //createElement: add button 
+    //button textContent: questionsArray[current].choices[i] 
+    //append button
 };
 
 function displayQuestion(current) {
     
     console.log("current question is " + questionsArray[current].question);
-    console.log(box);
     questionText.textContent = questionsArray[current].question;
+    displayChoices(current);
     //change choices and questiontext
 };
    
@@ -44,7 +55,7 @@ function displayQuestion(current) {
 function playGame() {
     
     console.log("you started the game!");
-    startbutton.remove(); //remove start button?
+    startbutton.remove(); //remove start button
     displayQuestion(currentQuestion);
     //display each question
     //compare answer
