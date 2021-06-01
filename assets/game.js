@@ -8,7 +8,7 @@ var questionText= document.querySelector(".box h2")
 
 //var score = 0;
 var questionsArray = [
-    q1 = {question: "this is question 1",
+    q1 = {question: "this is question 1, except its really really really really really really really really long",
     choices: ["a", "b", "c", "d"],
     right: "a",
     },
@@ -32,14 +32,13 @@ function displayChoices(current) {
     var i = 0;
     console.log("these are your choices!");
     choices.textcontent=""; //remove all text context 
-    //for(var i= 0; i < questionsArray[current].choices.length; i++) {
+    for(var i= 0; i < questionsArray[current].choices.length; i++) {
         button = document.createElement("button");
+        button.className = "button"; 
         button.textContent = questionsArray[current].choices[i];
         choices.appendChild(button);
-    //};
-    //createElement: add button 
-    //button textContent: questionsArray[current].choices[i] 
-    //append button
+    };
+    
 };
 
 function displayQuestion(current) {
