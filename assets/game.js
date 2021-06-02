@@ -10,23 +10,31 @@ var questionText= document.querySelector(".box h2")
 var questionsArray = [
     q1 = {question: "this is question 1, except its really really really really really really really really long",
     choices: ["a", "b", "c", "d"],
-    right: "a",
+    right: 0,
     },
     q2 = {question: "this is question 2",
     choices: ["a", "b", "c", "d"],
-    right: "a",
+    right: 1,
     },
     q3 = {question: "this is question 3",
     choices: ["a", "b", "c", "d"],
-    right: "a",
+    right: 3,
     },
     q4 = {question: "this is question 4",
     choices: ["a", "b", "c", "d"],
-    right: "a",
+    right: 2,
     },
 
 ];
 
+function displayQuestion(current) {
+    
+    console.log("current question is " + questionsArray[current].question);
+    questionText.textContent = questionsArray[current].question;
+    displayChoices(current);
+    //change choices and questiontext
+};
+   
 function displayChoices(current) {
     var button;
     var i = 0;
@@ -41,26 +49,28 @@ function displayChoices(current) {
     
 };
 
-function displayQuestion(current) {
-    
-    console.log("current question is " + questionsArray[current].question);
-    questionText.textContent = questionsArray[current].question;
-    displayChoices(current);
-    //change choices and questiontext
+//function compareAnswer(event) {
+   // console.log("you clicked an answer!");
+   // var answer =event.target;
+    //if(answer.matches("button")) {
+    //    console.log(event.target);
+    //}
+//};
+function nextQuestion(event) {
+    console.log("hello")
+    //if at the end of questions, return/ endgame?
+    //current question++
+    //display new question
+    //compare answer    
+    //change feedback message
 };
-   
 
-
-function playGame() {
-    
+function startGame() {
     console.log("you started the game!");
     startbutton.remove(); //remove start button
     displayQuestion(currentQuestion);
-    //display each question
-    //compare answer
-    //
 };
 
-startbutton.addEventListener("click", playGame);
+startbutton.addEventListener("click", startGame);
 
-//single process to process a click on an answer
+choices.addEventListener("click", nextQuestion); 

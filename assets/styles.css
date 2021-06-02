@@ -15,18 +15,16 @@ nav {
     margin: auto;
     max-width: 30%;
 }
-/* .box h2 {
 
-} */
 #start-button {
     justify-content: center;
     margin: 1% 20%;
-    padding: 0px;
 }
 .choices {
     display: flex;
     flex-direction: column;
 }
 .button {
-    background-color: blueviolet;
+    margin: 1% 10%;
+    background-color: rgba(240, 239, 239, 0.986);
 }
