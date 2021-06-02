@@ -4,7 +4,8 @@ var currentQuestion = 0; //integer, current question index from questionsArray
 var choices = document.querySelector(".choices");
 var timeEl=document.querySelector("#time");
 var timeLeft = 60;
-var questionText= document.querySelector(".box h2")
+var questionText= document.querySelector(".box h2");
+var feedback = document.querySelector(".feedback");
 
 //var score = 0;
 var questionsArray = [
@@ -18,11 +19,11 @@ var questionsArray = [
     },
     q3 = {question: "this is question 3",
     choices: ["a", "b", "c", "d"],
-    right: 3,
+    right: 2,
     },
     q4 = {question: "this is question 4",
     choices: ["a", "b", "c", "d"],
-    right: 2,
+    right: 3,
     },
 
 ];
@@ -49,20 +50,29 @@ function displayChoices(current) {
     
 };
 
-//function compareAnswer(event) {
-   // console.log("you clicked an answer!");
-   // var answer =event.target;
-    //if(answer.matches("button")) {
-    //    console.log(event.target);
-    //}
-//};
+function compareAnswer(event) {
+    console.log("you clicked an answer!");
+    var answer =event.target;
+    if(answer.matches("button")) {
+    console.log(event.target);
+    }
+};
+
 function nextQuestion(event) {
-    console.log("hello")
-    //if at the end of questions, return/ endgame?
-    //current question++
-    //display new question
-    //compare answer    
-    //change feedback message
+    //compare answer to correct
+    var correctIndex = questionsArray[currentQuestion].right;
+    if(event.target.matches("button")){
+        console.log(event.target);
+        if (event.target.textContent == questionsArray[currentQuestion].choices[correctIndex]) {
+            feedback.textContent="Correct!"
+        }
+        else{
+            feedback.textContent="Wrong!"
+        };
+    currentQuestion++;
+    displayQuestion(currentQuestion);
+
+    };
 };
 
 function startGame() {
