@@ -13,7 +13,7 @@ nav {
     display:flex;
     flex-direction: column;
     margin: auto;
-    max-width: 30%;
+    width: 30%;
 }
 
 #start-button {

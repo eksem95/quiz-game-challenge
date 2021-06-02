@@ -28,19 +28,23 @@ var questionsArray = [
 
 ];
 
-function displayQuestion(current) {
-    
-    console.log("current question is " + questionsArray[current].question);
-    questionText.textContent = questionsArray[current].question;
-    displayChoices(current);
-    //change choices and questiontext
+function gameOver(){
+    console.log("the game is over");
+    window.location.href = "http://www.w3schools.com";
+};
+
+function displayQuestion(current) {    
+        console.log("current question is " + questionsArray[current].question);
+        questionText.textContent = questionsArray[current].question;
+        displayChoices(current);
+        //change choices and questiontext
 };
    
 function displayChoices(current) {
     var button;
     var i = 0;
     console.log("these are your choices!");
-    choices.textcontent=""; //remove all text context 
+    choices.textContent=""; //remove all text context 
     for(var i= 0; i < questionsArray[current].choices.length; i++) {
         button = document.createElement("button");
         button.className = "button"; 
@@ -58,28 +62,39 @@ function compareAnswer(event) {
     }
 };
 
-function nextQuestion(event) {
+function nextQuestion(event) { 
     //compare answer to correct
     var correctIndex = questionsArray[currentQuestion].right;
     if(event.target.matches("button")){
         console.log(event.target);
         if (event.target.textContent == questionsArray[currentQuestion].choices[correctIndex]) {
-            feedback.textContent="Correct!"
+            feedback.textContent="Correct!";
         }
         else{
-            feedback.textContent="Wrong!"
+            feedback.textContent="Wrong!";
         };
-    currentQuestion++;
-    displayQuestion(currentQuestion);
-
     };
-};
+    currentQuestion++;
+    console.log(currentQuestion);
+   if(currentQuestion < questionsArray.length){
+       displayQuestion(currentQuestion);
+    }
+    else if(currentQuestion == questionsArray.length){
+     
+        console.log("end of questions");      
+        gameOver();
+    };
+};    
+
+
 
 function startGame() {
     console.log("you started the game!");
     startbutton.remove(); //remove start button
     displayQuestion(currentQuestion);
 };
+
+
 
 startbutton.addEventListener("click", startGame);
 
