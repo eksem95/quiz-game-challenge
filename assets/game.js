@@ -29,15 +29,22 @@ var questionsArray = [
 ];
 
 function gameOver(){
+    //removebox
+    //collect player initials
+    var initials = "ME";
+    var score = JSON.stringify([initials, timeLeft]);
+
+    
     console.log("the game is over");
-    window.location.href = "http://www.w3schools.com";
+    localStorage.setItem(initials, score);
+    //window.location.assign("./assets/highscores.html");
 };
 
-function displayQuestion(current) {    
+function displayQuestion(current) {    //change choices and questiontext
         console.log("current question is " + questionsArray[current].question);
         questionText.textContent = questionsArray[current].question;
         displayChoices(current);
-        //change choices and questiontext
+        
 };
    
 function displayChoices(current) {
@@ -99,3 +106,4 @@ function startGame() {
 startbutton.addEventListener("click", startGame);
 
 choices.addEventListener("click", nextQuestion); 
+
