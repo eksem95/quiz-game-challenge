@@ -9,7 +9,7 @@
 </head>
 <body>
     <nav>
-        <a>High Scores</a>
+        <a href="./assets/highscores.html">High Scores</a>
         <h1 id="time">Time:</h1>
     </nav>
     <div class="box">
@@ -17,6 +17,13 @@
         <button id="start-button">Start!</button>
         <div class="choices"></div>
         <h3 class="feedback"></h3>
+        <h3 class="hidden">
+            <form>
+                <label>Enter your initials: </label>
+                <input type="text" id="initials">
+                <button id="submit">Submit</button>
+            </form>
+        </h3>
     </div>
     <script src="./assets/game.js"></script>
 </body>

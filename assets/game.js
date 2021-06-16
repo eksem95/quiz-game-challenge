@@ -2,10 +2,14 @@ var timeEl = document.querySelector("#time");
 var startbutton = document.querySelector("#start-button");
 var currentQuestion = 0; //integer, current question index from questionsArray
 var choices = document.querySelector(".choices");
-var timeEl=document.querySelector("#time");
 var timeLeft = 60;
+var box = document.querySelector(".box");
 var questionText= document.querySelector(".box h2");
 var feedback = document.querySelector(".feedback");
+var initials; 
+var submitButton = document.querySelector("#submit");
+var continueButton;
+var score;
 
 //var score = 0;
 var questionsArray = [
@@ -28,16 +32,19 @@ var questionsArray = [
 
 ];
 
-function gameOver(){
-    //removebox
-    //collect player initials
-    var initials = "ME";
-    var score = JSON.stringify([initials, timeLeft]);
 
+function logScore(){
+    //local storage initials//localStorage.setItem(initials, score);
+    //display initals submit input
     
-    console.log("the game is over");
-    localStorage.setItem(initials, score);
-    //window.location.assign("./assets/highscores.html");
+    submitButton.addEventListener("click", function(event){
+        event.preventDefault();
+        initials = document.querySelector("#initials").value;
+        //local storage initials//localStorage.setItem(initials, score);
+        console.log(initials);
+        console.log(initials);
+        window.location.assign("./assets/highscores.html");
+    });
 };
 
 function displayQuestion(current) {    //change choices and questiontext
@@ -86,10 +93,14 @@ function nextQuestion(event) {
    if(currentQuestion < questionsArray.length){
        displayQuestion(currentQuestion);
     }
-    else if(currentQuestion == questionsArray.length){
-     
-        console.log("end of questions");      
-        gameOver();
+    else if(currentQuestion == questionsArray.length){     
+        console.log("end of questions");
+        score = timeLeft;
+        console.log(score);
+        logScore();
+        
+        
+        
     };
 };    
 
