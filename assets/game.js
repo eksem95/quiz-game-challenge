@@ -8,44 +8,32 @@ var questionText= document.querySelector(".box h2");
 var feedback = document.querySelector(".feedback");
 var initials; 
 var submitButton = document.querySelector("#submit");
-var continueButton;
+//var continueButton;
 var score;
 
 //var score = 0;
 var questionsArray = [
-    q1 = {question: "this is question 1, except its really really really really really really really really long",
-    choices: ["a", "b", "c", "d"],
+    q1 = {question: "name a string instrument",
+    choices: ["violin", "trombone", "saxophone", "oboe"],
     right: 0,
     },
-    q2 = {question: "this is question 2",
-    choices: ["a", "b", "c", "d"],
-    right: 1,
-    },
-    q3 = {question: "this is question 3",
-    choices: ["a", "b", "c", "d"],
+    q2 = {question: "Name a brass instrument",
+    choices: ["cello", "flute", "trumpet", "bass"],
     right: 2,
     },
-    q4 = {question: "this is question 4",
-    choices: ["a", "b", "c", "d"],
+    q3 = {question: "Name a woodwind instrument",
+    choices: ["bassoon", "viola", "tuba", "french horn"],
+    right: 0,
+    },
+    q4 = {question: "Who leads the orchestra?",
+    choices: ["The leader", "Musician", "Whoever you want", "the Conductor"],
     right: 3,
     },
 
 ];
 
 
-function logScore(){
-    //local storage initials//localStorage.setItem(initials, score);
-    //display initals submit input
-    
-    submitButton.addEventListener("click", function(event){
-        event.preventDefault();
-        initials = document.querySelector("#initials").value;
-        //local storage initials//localStorage.setItem(initials, score);
-        console.log(initials);
-        console.log(initials);
-        window.location.assign("./assets/highscores.html");
-    });
-};
+
 
 function displayQuestion(current) {    //change choices and questiontext
         console.log("current question is " + questionsArray[current].question);
@@ -65,6 +53,7 @@ function displayChoices(current) {
         button.textContent = questionsArray[current].choices[i];
         choices.appendChild(button);
     };
+   
     
 };
 
@@ -76,32 +65,34 @@ function compareAnswer(event) {
     }
 };
 
-function nextQuestion(event) { 
+function nextQuestion(event) {
     //compare answer to correct
     var correctIndex = questionsArray[currentQuestion].right;
-    if(event.target.matches("button")){
-        console.log(event.target);
+    console.log(currentQuestion);
+
+    if (event.target.matches("button")) {
         if (event.target.textContent == questionsArray[currentQuestion].choices[correctIndex]) {
-            feedback.textContent="Correct!";
+            feedback.textContent = "Correct!";
         }
-        else{
-            feedback.textContent="Wrong!";
+        else {
+            feedback.textContent = "Wrong!";
         };
     };
-    currentQuestion++;
-    console.log(currentQuestion);
-   if(currentQuestion < questionsArray.length){
-       displayQuestion(currentQuestion);
+    
+    if (currentQuestion < questionsArray.length-1) {
+        currentQuestion++;
+        console.log(currentQuestion);
+        displayQuestion(currentQuestion);
     }
-    else if(currentQuestion == questionsArray.length){     
+    else if (currentQuestion == questionsArray.length-1) {//game is over
+        //stop timer
         console.log("end of questions");
-        score = timeLeft;
-        console.log(score);
-        logScore();
-        
-        
+        //score = timeLeft
+        choices.textContent="";
+        questionText.textContent="Quiz Complete!"
         
     };
+    
 };    
 
 
@@ -109,10 +100,18 @@ function nextQuestion(event) {
 function startGame() {
     console.log("you started the game!");
     startbutton.remove(); //remove start button
+    console.log(currentQuestion);
     displayQuestion(currentQuestion);
 };
 
-
+submitButton.addEventListener("click", function(event){
+    event.preventDefault();
+    initials = document.querySelector("#initials").value;
+    localStorage.setItem(initials, JSON.stringify(score));
+    console.log(initials);
+    //window.location.assign("./assets/highscores.html");
+    console.log("submit button was clicked!!!!")
+});
 
 startbutton.addEventListener("click", startGame);
 
