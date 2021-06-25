@@ -9,7 +9,6 @@ var feedback = document.querySelector(".feedback");
 var initials;
 var submitButton = document.querySelector("#submit");
 var saveScoreEl = document.querySelector(".saveScoreEl");
-//var continueButton;
 var timerInterval;
 var score;
 
@@ -38,6 +37,14 @@ var questionsArray = [
 
 ];
 
+function gameOver(){
+    score = timeLeft;
+    choices.textContent = "";
+    questionText.textContent = "Quiz Complete!";
+    saveScoreEl.style.display = "block";
+    clearInterval(timerInterval);
+   
+}
 
 function startTimer() {
     timerInterval = setInterval(function () {
@@ -46,8 +53,8 @@ function startTimer() {
 
         if (timeLeft === 0) {
             // Stops execution of action at set interval
-            clearInterval(timerInterval);
-            console.log(timeLeft);
+            //clearInterval(timerInterval);
+            gameOver();
         }
 
     }, 1000);
@@ -92,6 +99,7 @@ function nextQuestion(event) {
         }
         else {
             feedback.textContent = "Wrong!";
+            timeLeft = timeLeft - 10; 
         };
     };
 
@@ -101,14 +109,15 @@ function nextQuestion(event) {
         displayQuestion(currentQuestion);
     }
     else if (currentQuestion == questionsArray.length - 1) {//game is over
-        //stop timer
         console.log("end of questions");
-        score = timeLeft;
-        choices.textContent = "";
-        questionText.textContent = "Quiz Complete!";
-        saveScoreEl.style.display = "block";
-        clearInterval(timerInterval);
-        //saveScore();
+        gameOver();
+
+        // score = timeLeft;
+        // choices.textContent = "";
+        // questionText.textContent = "Quiz Complete!";
+        // saveScoreEl.style.display = "block";
+        // clearInterval(timerInterval);
+       
 
     };
 
@@ -128,8 +137,8 @@ submitButton.addEventListener("click", function (event) {
     initials = document.querySelector("#initials").value;
     localStorage.setItem(initials, JSON.stringify(score));
     console.log(initials);
-    //window.location.assign("./assets/highscores.html");
     console.log("submit button was clicked!!!!")
+    window.location.assign("./assets/highscores.html");
 });
 
 startbutton.addEventListener("click", startGame);
