@@ -4,64 +4,80 @@ var currentQuestion = 0; //integer, current question index from questionsArray
 var choices = document.querySelector(".choices");
 var timeLeft = 60;
 var box = document.querySelector(".box");
-var questionText= document.querySelector(".box h2");
+var questionText = document.querySelector(".box h2");
 var feedback = document.querySelector(".feedback");
-var initials; 
+var initials;
 var submitButton = document.querySelector("#submit");
+var saveScoreEl = document.querySelector(".saveScoreEl");
 //var continueButton;
+var timerInterval;
 var score;
 
 //var score = 0;
 var questionsArray = [
-    q1 = {question: "name a string instrument",
-    choices: ["violin", "trombone", "saxophone", "oboe"],
-    right: 0,
+    q1 = {
+        question: "name a string instrument",
+        choices: ["violin", "trombone", "saxophone", "oboe"],
+        right: 0,
     },
-    q2 = {question: "Name a brass instrument",
-    choices: ["cello", "flute", "trumpet", "bass"],
-    right: 2,
+    q2 = {
+        question: "Name a brass instrument",
+        choices: ["cello", "flute", "trumpet", "bass"],
+        right: 2,
     },
-    q3 = {question: "Name a woodwind instrument",
-    choices: ["bassoon", "viola", "tuba", "french horn"],
-    right: 0,
+    q3 = {
+        question: "Name a woodwind instrument",
+        choices: ["bassoon", "viola", "tuba", "french horn"],
+        right: 0,
     },
-    q4 = {question: "Who leads the orchestra?",
-    choices: ["The leader", "Musician", "Whoever you want", "the Conductor"],
-    right: 3,
+    q4 = {
+        question: "Who leads the orchestra?",
+        choices: ["The Leader", "A Musician", "Whoever you want", "the Conductor"],
+        right: 3,
     },
 
 ];
 
 
+function startTimer() {
+    timerInterval = setInterval(function () {
+        timeLeft--;
+        timeEl.textContent = "Time: " + timeLeft;
 
+        if (timeLeft === 0) {
+            // Stops execution of action at set interval
+            clearInterval(timerInterval);
+            console.log(timeLeft);
+        }
+
+    }, 1000);
+};
 
 function displayQuestion(current) {    //change choices and questiontext
-        console.log("current question is " + questionsArray[current].question);
-        questionText.textContent = questionsArray[current].question;
-        displayChoices(current);
-        
+    console.log("current question is " + questionsArray[current].question);
+    questionText.textContent = questionsArray[current].question;
+    displayChoices(current);
+
 };
-   
+
 function displayChoices(current) {
     var button;
     var i = 0;
     console.log("these are your choices!");
-    choices.textContent=""; //remove all text context 
-    for(var i= 0; i < questionsArray[current].choices.length; i++) {
+    choices.textContent = ""; //remove all text context 
+    for (var i = 0; i < questionsArray[current].choices.length; i++) {
         button = document.createElement("button");
-        button.className = "button"; 
+        button.className = "button";
         button.textContent = questionsArray[current].choices[i];
         choices.appendChild(button);
     };
-   
-    
 };
 
 function compareAnswer(event) {
     console.log("you clicked an answer!");
-    var answer =event.target;
-    if(answer.matches("button")) {
-    console.log(event.target);
+    var answer = event.target;
+    if (answer.matches("button")) {
+        console.log(event.target);
     }
 };
 
@@ -78,34 +94,37 @@ function nextQuestion(event) {
             feedback.textContent = "Wrong!";
         };
     };
-    
-    if (currentQuestion < questionsArray.length-1) {
+
+    if (currentQuestion < questionsArray.length - 1) {
         currentQuestion++;
         console.log(currentQuestion);
         displayQuestion(currentQuestion);
     }
-    else if (currentQuestion == questionsArray.length-1) {//game is over
+    else if (currentQuestion == questionsArray.length - 1) {//game is over
         //stop timer
         console.log("end of questions");
-        //score = timeLeft
-        choices.textContent="";
-        questionText.textContent="Quiz Complete!"
-        
+        score = timeLeft;
+        choices.textContent = "";
+        questionText.textContent = "Quiz Complete!";
+        saveScoreEl.style.display = "block";
+        clearInterval(timerInterval);
+        //saveScore();
+
     };
-    
-};    
 
-
+};
 
 function startGame() {
     console.log("you started the game!");
     startbutton.remove(); //remove start button
     console.log(currentQuestion);
     displayQuestion(currentQuestion);
+    startTimer();
 };
 
-submitButton.addEventListener("click", function(event){
+submitButton.addEventListener("click", function (event) {
     event.preventDefault();
+    console.log(score);
     initials = document.querySelector("#initials").value;
     localStorage.setItem(initials, JSON.stringify(score));
     console.log(initials);
@@ -115,5 +134,5 @@ submitButton.addEventListener("click", function(event){
 
 startbutton.addEventListener("click", startGame);
 
-choices.addEventListener("click", nextQuestion); 
+choices.addEventListener("click", nextQuestion);
 
